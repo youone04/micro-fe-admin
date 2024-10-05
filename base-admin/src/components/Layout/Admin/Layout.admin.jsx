@@ -10,7 +10,7 @@ import {
 } from '@ant-design/icons';
 import React from 'react';
 import { Link } from 'react-router-dom';
-
+import { pathRoutes } from '../../../utils/const-routes/const.routes';
 const { Header, Content, Footer, Sider } = Layout;
 
 const LayoutAdmin = ({ children }) => {
@@ -28,7 +28,7 @@ const LayoutAdmin = ({ children }) => {
     </Menu>
   );
 
-  const pathname = window.location.pathname;
+  let pathname = window.location.pathname.split('/');
 
   return (
     <Layout style={{ minHeight: '100vh' }}> {/* Fullscreen layout */}
@@ -39,15 +39,15 @@ const LayoutAdmin = ({ children }) => {
         }}>
           <h3>Logo</h3>
         </div>
-        <Menu theme="dark" defaultSelectedKeys={[`${pathname}`]} mode="inline">
+        <Menu theme="dark" defaultSelectedKeys={[`/${pathname[1]}`]} mode="inline">
           <Menu.Item key="/" icon={<DashboardOutlined />}>
-            <Link to={'/'}>Dashboard</Link>
+            <Link to={pathRoutes.homeBase}>Dashboard</Link>
           </Menu.Item>
           <Menu.Item key="/users" icon={<UserOutlined />}>
             Users
           </Menu.Item>
           <Menu.Item key="/admin" icon={<UserOutlined />}>
-            <Link to={'/admin'}>
+            <Link to={pathRoutes.viewAdmin}>
               Admin
             </Link>
           </Menu.Item>
