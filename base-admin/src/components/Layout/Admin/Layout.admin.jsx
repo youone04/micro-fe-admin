@@ -43,8 +43,10 @@ const LayoutAdmin = ({ children }) => {
           <Menu.Item key="/" icon={<DashboardOutlined />}>
             <Link to={pathRoutes.homeBase}>Dashboard</Link>
           </Menu.Item>
-          <Menu.Item key="/users" icon={<UserOutlined />}>
+          <Menu.Item key="/user" icon={<UserOutlined />}>
+          <Link to={pathRoutes.viewUser}>
             Users
+          </Link>
           </Menu.Item>
           <Menu.Item key="/admin" icon={<UserOutlined />}>
             <Link to={pathRoutes.viewAdmin}>
