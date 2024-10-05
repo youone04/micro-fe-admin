@@ -53,6 +53,11 @@ const LayoutAdmin = ({ children }) => {
               Admin
             </Link>
           </Menu.Item>
+          <Menu.Item key="/faktur" icon={<UserOutlined />}>
+            <Link to={pathRoutes.viewFaktur}>
+              Faktur
+            </Link>
+          </Menu.Item>
           <Menu.Item key="/settings" icon={<SettingOutlined />}>
             Settings
           </Menu.Item>

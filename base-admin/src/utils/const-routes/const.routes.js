@@ -1,5 +1,5 @@
 import Page404 from "../../pages/page.404/page.404"
-import PageAdmin from "../../pages/page.admin/page.admin"
+import {PageAdmin, PageAdminFaktur, PageAdminCreate} from "../../pages/page.admin/page.admin"
 import PageHome from "../../pages/page.home/page.home"
 import PageUser from "../../pages/page.user/page.user"
 
@@ -13,24 +13,26 @@ export const pathRoutes = {
 }
 
 export const routes = [
+    //admin
     {
         path: pathRoutes.viewAdmin,
-        name: "Home",
+        name: "ViewAdmin",
         exact: true,
         component: PageAdmin
     },
     {
         path: pathRoutes.createAdmin,
-        name: "Create",
+        name: "CreateAdmin",
         exact: true,
-        component: PageAdmin
+        component: PageAdminCreate
     },
     {
         path: pathRoutes.viewFaktur,
         name: "Faktur",
         exact: true,
-        component: PageAdmin
+        component: PageAdminFaktur
     },
+    //end admin
     {
         path: pathRoutes.homeBase,
         name: "Homebase",
