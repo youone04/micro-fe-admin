@@ -4,7 +4,6 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { routes } from './utils/const-routes/const.routes';
 
 function App() {
-
   return (
     <BrowserRouter>
       <LayoutAdmin>
@@ -12,6 +11,7 @@ function App() {
          {
            routes.map((route, index) => {
              return <Route key={index} path={route.path} element={<route.component/>} />
+           
            })
          }
         </Routes>

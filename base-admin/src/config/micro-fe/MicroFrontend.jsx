@@ -35,19 +35,19 @@
 // }
 
 // export default MicroFrontend;
-
 import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import ErrorPage from "../../components/Layout/page.error/page.error";
 
-function MicroFrontend({ name, host, history, document = window.document, customWindow = globalThis.window }) {
+function MicroFrontend({ name, host, document = window.document, customWindow = globalThis.window }) {
   const [hasError, setHasError] = useState(false);
-
+  const navigate = useNavigate();  // gunakan useNavigate untuk navigasi
   useEffect(() => {
     const scriptId = `micro-frontend-script-${name}`;
 
     const renderMicroFrontend = () => {
-      if (window[`render${name}`]) {
-        window[`render${name}`](`${name}-container`, history);
+      if (customWindow[`render${name}`]) {
+        customWindow[`render${name}`](`${name}-container`, navigate);  // berikan navigate ke micro frontend
       } else {
         console.error(`Micro frontend ${name} gagal dirender karena fungsi render tidak ditemukan.`);
         setHasError(true);  // Tampilkan halaman error
@@ -86,9 +86,15 @@ function MicroFrontend({ name, host, history, document = window.document, custom
       });
 
     return () => {
-      window[`unmount${name}`] && window[`unmount${name}`](`${name}-container`);
+      if (customWindow[`unmount${name}`]) {
+        customWindow[`unmount${name}`](`${name}-container`);
+      }
+      const script = document.getElementById(scriptId);
+      if (script) {
+        document.head.removeChild(script);
+      }
     };
-  }, [name, host, history, document]);
+  }, [name, host, document, customWindow, navigate]);  // tambahkan navigate sebagai dependency
 
   // Jika ada error, tampilkan halaman error
   if (hasError) {
@@ -98,3 +104,4 @@ function MicroFrontend({ name, host, history, document = window.document, custom
 }
 
 export default MicroFrontend;
+

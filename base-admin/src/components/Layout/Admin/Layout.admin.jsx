@@ -29,7 +29,6 @@ const LayoutAdmin = ({ children }) => {
   );
 
   let pathname = window.location.pathname.split('/');
-
   return (
     <Layout style={{ minHeight: '100vh' }}> {/* Fullscreen layout */}
       <Sider collapsible style={{ height: '100vh' }}> {/* Sidebar with full height */}
