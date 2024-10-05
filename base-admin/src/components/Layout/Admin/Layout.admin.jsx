@@ -9,6 +9,7 @@ import {
   DownOutlined,
 } from '@ant-design/icons';
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 const { Header, Content, Footer, Sider } = Layout;
 
@@ -27,26 +28,39 @@ const LayoutAdmin = ({ children }) => {
     </Menu>
   );
 
+  const pathname = window.location.pathname;
+
   return (
     <Layout style={{ minHeight: '100vh' }}> {/* Fullscreen layout */}
       <Sider collapsible style={{ height: '100vh' }}> {/* Sidebar with full height */}
-        <div className="logo" style={{ height: '32px', margin: '16px', background: 'rgba(255, 255, 255, 0.3)' }} />
-        <Menu theme="dark" defaultSelectedKeys={['1']} mode="inline">
-          <Menu.Item key="1" icon={<DashboardOutlined />}>
-            Dashboard
+        <div className="logo" style={{
+          display: 'flex', justifyContent: 'center', alignItems: 'center',
+          borderRadius: 4, height: '32px', margin: '16px', background: 'rgba(255, 255, 255, 0.3)'
+        }}>
+          <h3>Logo</h3>
+        </div>
+        <Menu theme="dark" defaultSelectedKeys={[`${pathname}`]} mode="inline">
+          <Menu.Item key="/" icon={<DashboardOutlined />}>
+            <Link to={'/'}>Dashboard</Link>
           </Menu.Item>
-          <Menu.Item key="2" icon={<UserOutlined />}>
+          <Menu.Item key="/users" icon={<UserOutlined />}>
             Users
           </Menu.Item>
-          <Menu.Item key="3" icon={<SettingOutlined />}>
+          <Menu.Item key="/admin" icon={<UserOutlined />}>
+            <Link to={'/admin'}>
+              Admin
+            </Link>
+          </Menu.Item>
+          <Menu.Item key="/settings" icon={<SettingOutlined />}>
             Settings
           </Menu.Item>
-          <Menu.Item key="4" icon={<LogoutOutlined />}>
+          <Menu.Item key="/logout" icon={<LogoutOutlined />}>
             Logout
           </Menu.Item>
         </Menu>
       </Sider>
       <Layout>
+
         <Header style={{ background: '#fff', padding: '0 16px', display: 'flex', justifyContent: 'space-between' }}>
           <Menu theme="light" mode="horizontal" defaultSelectedKeys={['home']} style={{ flex: 1 }}>
             <Menu.Item key="home" icon={<HomeOutlined />}>
