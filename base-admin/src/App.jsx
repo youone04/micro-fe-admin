@@ -4,6 +4,7 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { routes } from './utils/const-routes/const.routes';
 
 function App() {
+
   return (
     <BrowserRouter>
       <LayoutAdmin>

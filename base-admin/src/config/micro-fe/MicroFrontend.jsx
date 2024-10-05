@@ -94,7 +94,6 @@ function MicroFrontend({ name, host, history, document = window.document, custom
   if (hasError) {
     return <ErrorPage message={`Micro frontend ${name} tidak dapat dimuat. Silakan coba lagi nanti.`} />;
   }
-
   return <main id={`${name}-container`} />;
 }
 
