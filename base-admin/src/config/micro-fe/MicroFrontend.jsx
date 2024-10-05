@@ -1,47 +1,13 @@
-// import React, { useEffect } from "react";
-//+ untuk micro FE
-// function MicroFrontend({ name, host, history, document = window.document, customWindow = globalThis.window }) {
-//   useEffect(() => {
-//     const scriptId = `micro-frontend-script-${name}`;
-//     const renderMicroFrontend = () => {
-      
-//       window[`render${name}`](`${name}-container`, history);
-//     };
-
-//     if (document.getElementById(scriptId)) {
-//       renderMicroFrontend();
-//       return;
-//     }
-    
-//     fetch(`${host}/asset-manifest.json`)
-//       .then((res) => res.json())
-//       .then((manifest) => {
-//         const script = document.createElement("script");
-//         script.id = scriptId;
-//         script.crossOrigin = "";
-//         script.src = `${host}${manifest.files["main.js"]}`;
-//         script.onload = () => {
-//           renderMicroFrontend();
-//         };
-//         document.head.appendChild(script);
-//       });
-
-//     return () => {
-//       window[`unmount${name}`] && window[`unmount${name}`](`${name}-container`);
-//     };
-//   });
-
-//   return <main id={`${name}-container`} />;
-// }
-
-// export default MicroFrontend;
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import ErrorPage from "../../components/Layout/page.error/page.error";
+import PageLoading from "../../components/Layout/page.loading/page.loading";
 
 function MicroFrontend({ name, host, document = window.document, customWindow = globalThis.window }) {
   const [hasError, setHasError] = useState(false);
+  const [hasIsLoading, setIsLoading] = useState(true); // State untuk loading
   const navigate = useNavigate();  // gunakan useNavigate untuk navigasi
+  
   useEffect(() => {
     const scriptId = `micro-frontend-script-${name}`;
 
@@ -51,11 +17,13 @@ function MicroFrontend({ name, host, document = window.document, customWindow = 
       } else {
         console.error(`Micro frontend ${name} gagal dirender karena fungsi render tidak ditemukan.`);
         setHasError(true);  // Tampilkan halaman error
+        setIsLoading(false); // Selesai loading
       }
     };
 
     if (document.getElementById(scriptId)) {
       renderMicroFrontend();
+      setIsLoading(false); // Selesai loading
       return;
     }
 
@@ -73,16 +41,19 @@ function MicroFrontend({ name, host, document = window.document, customWindow = 
         script.src = `${host}${manifest.files["main.js"]}`;
         script.onload = () => {
           renderMicroFrontend();
+          setIsLoading(false); // Selesai loading setelah script berhasil dimuat
         };
         script.onerror = () => {
           console.error(`Gagal memuat script micro frontend untuk ${name}.`);
           setHasError(true);  // Tampilkan halaman error
+          setIsLoading(false); // Selesai loading
         };
         document.head.appendChild(script);
       })
       .catch((error) => {
         console.error(`Error saat mencoba memuat micro frontend ${name}:`, error);
         setHasError(true);  // Tampilkan halaman error
+        setIsLoading(false); // Selesai loading
       });
 
     return () => {
@@ -98,10 +69,21 @@ function MicroFrontend({ name, host, document = window.document, customWindow = 
 
   // Jika ada error, tampilkan halaman error
   if (hasError) {
-    return <ErrorPage message={`Micro frontend ${name} tidak dapat dimuat. Silakan coba lagi nanti.`} />;
-  }
-  return <main id={`${name}-container`} />;
+    return <ErrorPage message={`Micro frontend ${name} tidak dapat dimuat. Silakan coba lagi nanti.`} />
+  } 
+
+  // Jika berhasil dimuat, tampilkan kontainer micro frontend
+  return (
+    <main id={`${name}-container`}>
+      <div style={{
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            height: '80vh',
+            width: '100%',
+        }}>{hasIsLoading && <PageLoading/>}</div>
+    </main>
+  )
 }
 
 export default MicroFrontend;
-
