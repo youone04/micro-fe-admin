@@ -60,10 +60,10 @@ function MicroFrontend({ name, host, document = window.document, customWindow = 
       if (customWindow[`unmount${name}`]) {
         customWindow[`unmount${name}`](`${name}-container`);
       }
-      const script = document.getElementById(scriptId);
-      if (script) {
-        document.head.removeChild(script);
-      }
+      // const script = document.getElementById(scriptId);
+      // if (script) {
+      //   document.head.removeChild(script);
+      // }
     };
   }, [name, host, document, customWindow, navigate]);  // tambahkan navigate sebagai dependency
 
@@ -73,9 +73,10 @@ function MicroFrontend({ name, host, document = window.document, customWindow = 
   } 
 
   // Jika berhasil dimuat, tampilkan kontainer micro frontend
+  // return  <main id={`${name}-container`}/>
   return (
     <main id={`${name}-container`}>
-      <div style={{
+       <div style={{
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
