@@ -3,16 +3,26 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "@testing-library/jest-dom": "^5.17.0",
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
+    "@ant-design/icons": "^5.5.1",
+    "@iconify/icons-akar-icons": "^1.2.19",
+    "@iconify/icons-bi": "^1.2.19",
+    "@iconify/icons-eva": "^1.2.6",
+    "@iconify/react": "^5.0.2",
+    "@testing-library/jest-dom": "^5.17.0",
+    "apexcharts": "^3.54.0",
+    "moment": "^2.30.1",
+    "antd": "^5.21.2",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
+    "react-router-dom": "^6.26.2",
     "react-scripts": "5.0.1",
-    "web-vitals": "^2.1.4"
+    "web-vitals": "^2.1.4",
+     "styled-components": "^6.1.13"
   },
   "scripts": {
-    "start": "react-scripts start",
+    "start": "PORT=3001 react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
